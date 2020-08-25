@@ -1,0 +1,16 @@
+{
+    "name": "biblibre/omeka-s-module-ldap",
+    "description": "Authentication with LDAP for Omeka S",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Julian Maurice",
+            "email": "julian.maurice@biblibre.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "zendframework/zend-ldap": "^2.10"
+    }
+}
