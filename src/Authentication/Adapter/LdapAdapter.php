@@ -41,25 +41,30 @@ class LdapAdapter extends AbstractAdapter
         $ldapAdapter = new Ldap($options, $this->identity, $this->credential);
         $result = $ldapAdapter->authenticate();
         if ($result->isValid()) {
+            $identity = $result->getIdentity();
             $query = $this->entityManager->createQuery('SELECT s FROM Omeka\Entity\UserSetting s WHERE s.id = :settingName AND s.value = :settingValue');
             $query->setParameter('settingName', 'ldap_identity');
-            $query->setParameter('settingValue', json_encode($result->getIdentity()));
+            $query->setParameter('settingValue', json_encode($identity));
             $settings = $query->getResult();
             $setting = reset($settings);
             $user = $setting ? $setting->getUser() : null;
             if (!$user) {
-                $user = new User();
-                $user->setName($result->getIdentity());
-                $user->setEmail('');
-                $user->setRole(Acl::ROLE_RESEARCHER);
-                $user->setIsActive(true);
+                $userRepository = $this->entityManager->getRepository('Omeka\Entity\User');
+                $user = $userRepository->findOneBy(['email' => $identity]);
+                if (!$user) {
+                    $user = new User();
+                    $user->setName($identity);
+                    $user->setEmail($identity);
+                    $user->setRole(Acl::ROLE_RESEARCHER);
+                    $user->setIsActive(true);
+                    $this->entityManager->persist($user);
+                }
 
                 $userSetting = new UserSetting();
                 $userSetting->setId('ldap_identity');
                 $userSetting->setUser($user);
-                $userSetting->setValue($result->getIdentity());
+                $userSetting->setValue($identity);
 
-                $this->entityManager->persist($user);
                 $this->entityManager->persist($userSetting);
                 $this->entityManager->flush();
             }
