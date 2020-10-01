@@ -10,6 +10,7 @@ use Omeka\Settings\Settings;
 use Zend\Authentication\Adapter\AbstractAdapter;
 use Zend\Authentication\Adapter\Ldap;
 use Zend\Authentication\Result;
+use Zend\EventManager\EventManager;
 use Zend\Log\Logger;
 
 class LdapAdapter extends AbstractAdapter
@@ -34,12 +35,18 @@ class LdapAdapter extends AbstractAdapter
      */
     protected $settings;
 
-    public function __construct(EntityManager $entityManager, Logger $logger, Settings $settings, array $config = [])
+    /**
+     * @var EventManager
+     */
+    protected $eventManager;
+
+    public function __construct(EntityManager $entityManager, Logger $logger, Settings $settings, EventManager $eventManager, array $config = [])
     {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
         $this->config = $config;
         $this->settings = $settings;
+        $this->eventManager = $eventManager;
     }
 
     public function authenticate()
@@ -64,7 +71,12 @@ class LdapAdapter extends AbstractAdapter
                     $user->setEmail($identity);
                     $user->setRole($this->settings->get('ldap_role', Acl::ROLE_RESEARCHER));
                     $user->setIsActive(true);
+
+                    $this->eventManager->setIdentifiers([self::class]);
+                    $this->eventManager->trigger('ldap.user.create.pre', $user);
                     $this->entityManager->persist($user);
+                    $this->entityManager->flush();
+                    $this->eventManager->trigger('ldap.user.create.post', $user);
                 }
 
                 $userSetting = new UserSetting();
