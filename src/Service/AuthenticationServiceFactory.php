@@ -24,6 +24,7 @@ class AuthenticationServiceFactory implements FactoryInterface
         $entityManager = $serviceLocator->get('Omeka\EntityManager');
         $logger = $serviceLocator->get('Omeka\Logger');
         $status = $serviceLocator->get('Omeka\Status');
+        $settings = $serviceLocator->get('Omeka\Settings');
 
         // Skip auth retrieval entirely if we're installing or migrating.
         if (!$status->isInstalled() ||
@@ -43,7 +44,7 @@ class AuthenticationServiceFactory implements FactoryInterface
             } else {
                 // Authenticate using user/password for all other requests.
                 $storage = new DoctrineWrapper(new Session, $userRepository);
-                $adapter = new LdapAdapter($entityManager, $logger, $config['ldap']);
+                $adapter = new LdapAdapter($entityManager, $logger, $settings, $config['ldap']);
             }
         }
 

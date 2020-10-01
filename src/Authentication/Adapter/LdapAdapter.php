@@ -6,6 +6,7 @@ use Omeka\Authentication\Adapter\PasswordAdapter;
 use Omeka\Entity\User;
 use Omeka\Entity\UserSetting;
 use Omeka\Permissions\Acl;
+use Omeka\Settings\Settings;
 use Zend\Authentication\Adapter\AbstractAdapter;
 use Zend\Authentication\Adapter\Ldap;
 use Zend\Authentication\Result;
@@ -28,11 +29,17 @@ class LdapAdapter extends AbstractAdapter
      */
     protected $config;
 
-    public function __construct(EntityManager $entityManager, Logger $logger, array $config = [])
+    /**
+     * @var Settings
+     */
+    protected $settings;
+
+    public function __construct(EntityManager $entityManager, Logger $logger, Settings $settings, array $config = [])
     {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
         $this->config = $config;
+        $this->settings = $settings;
     }
 
     public function authenticate()
@@ -55,7 +62,7 @@ class LdapAdapter extends AbstractAdapter
                     $user = new User();
                     $user->setName($identity);
                     $user->setEmail($identity);
-                    $user->setRole(Acl::ROLE_RESEARCHER);
+                    $user->setRole($this->settings->get('ldap_role', Acl::ROLE_RESEARCHER));
                     $user->setIsActive(true);
                     $this->entityManager->persist($user);
                 }
