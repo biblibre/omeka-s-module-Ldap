@@ -10,7 +10,7 @@ class ConfigForm extends Form
     public function init()
     {
         $this->add([
-            'name' => 'role',
+            'name' => 'ldap_role',
             'type' => RoleSelect::class,
             'options' => [
                 'label' => 'Role', // @translate

@@ -24,19 +24,30 @@ class Module extends AbstractModule
 
     public function getConfigForm(PhpRenderer $renderer)
     {
-        $forms = $this->getServiceLocator()->get('FormElementManager');
-        $settings = $this->getServiceLocator()->get('Omeka\Settings');
-        $form = $forms->get(ConfigForm::class);
+        $services = $this->getServiceLocator();
+        $settings = $services->get('Omeka\Settings');
+        $form = $services->get('FormElementManager')->get(ConfigForm::class);
+        $form->init();
         $form->setData([
-            'role' => $settings->get('ldap_role'),
+            'ldap_role' => $settings->get('ldap_role'),
         ]);
-
-        return $renderer->render('ldap/config-form', ['form' => $form]);
+        return $renderer->formCollection($form, false);
     }
 
     public function handleConfigForm(AbstractController $controller)
     {
-        $params = $controller->params()->fromPost();
-        $controller->settings()->set('ldap_role', $params['role']);
+        $services = $this->getServiceLocator();
+        $settings = $services->get('Omeka\Settings');
+        $form = $services->get('FormElementManager')->get(ConfigForm::class);
+        $form->init();
+        $form->setData($controller->params()->fromPost());
+        if (!$form->isValid()) {
+            $controller->messenger()->addErrors($form->getMessages());
+            return false;
+        }
+
+        $formData = $form->getData();
+        $settings->set('ldap_role', $formData['ldap_role']);
+        return true;
     }
 }

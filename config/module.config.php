@@ -5,6 +5,7 @@ namespace Ldap;
 return [
     'form_elements' => [
         'invokables' => [
+            Form\ConfigForm::class => Form\ConfigForm::class,
             'Omeka\Form\LoginForm' => Form\LoginForm::class,
         ],
     ],
@@ -17,11 +18,6 @@ return [
     'service_manager' => [
         'factories' => [
             'Omeka\AuthenticationService' => Service\AuthenticationServiceFactory::class,
-        ],
-    ],
-    'view_manager' => [
-        'template_path_stack' => [
-            dirname(__DIR__) . '/view',
         ],
     ],
 ];
