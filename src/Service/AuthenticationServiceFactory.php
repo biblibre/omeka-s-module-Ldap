@@ -1,15 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 namespace Ldap\Service;
 
 use Interop\Container\ContainerInterface;
-use Ldap\Authentication\Adapter\LdapAdapter;
-use Omeka\Authentication\Adapter\KeyAdapter;
-use Omeka\Authentication\Storage\DoctrineWrapper;
-use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\Adapter\Callback;
+use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\Storage\NonPersistent;
 use Laminas\Authentication\Storage\Session;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Ldap\Authentication\Adapter\LdapAdapter;
+use Omeka\Authentication\Adapter\KeyAdapter;
+use Omeka\Authentication\Storage\DoctrineWrapper;
 
 class AuthenticationServiceFactory implements FactoryInterface
 {

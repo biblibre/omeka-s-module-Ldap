@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Ldap\Form;
 
-use Omeka\Form\Element\RoleSelect;
 use Laminas\Form\Form;
+use Omeka\Form\Element\RoleSelect;
 
 class ConfigForm extends Form
 {
-    public function init()
+    public function init(): void
     {
         $this->add([
             'name' => 'role',

@@ -1,17 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 namespace Ldap\Authentication\Adapter;
 
 use Doctrine\ORM\EntityManager;
-use Omeka\Authentication\Adapter\PasswordAdapter;
-use Omeka\Entity\User;
-use Omeka\Entity\UserSetting;
-use Omeka\Permissions\Acl;
-use Omeka\Settings\Settings;
 use Laminas\Authentication\Adapter\AbstractAdapter;
 use Laminas\Authentication\Adapter\Ldap;
 use Laminas\Authentication\Result;
 use Laminas\EventManager\EventManager;
 use Laminas\Log\Logger;
+use Omeka\Authentication\Adapter\PasswordAdapter;
+use Omeka\Entity\User;
+use Omeka\Entity\UserSetting;
+use Omeka\Permissions\Acl;
+use Omeka\Settings\Settings;
 
 class LdapAdapter extends AbstractAdapter
 {

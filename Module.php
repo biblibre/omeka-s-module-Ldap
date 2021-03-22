@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Ldap;
 
-use Ldap\Form\ConfigForm;
-use Omeka\Module\AbstractModule;
 use Laminas\Mvc\Controller\AbstractController;
 use Laminas\Mvc\MvcEvent;
 use Laminas\View\Renderer\PhpRenderer;
+use Ldap\Form\ConfigForm;
+use Omeka\Module\AbstractModule;
 
 class Module extends AbstractModule
 {
-    public function onBootstrap(MvcEvent $event)
+    public function onBootstrap(MvcEvent $event): void
     {
         parent::onBootstrap($event);
 
