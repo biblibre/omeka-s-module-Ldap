@@ -7,11 +7,11 @@ use Omeka\Entity\User;
 use Omeka\Entity\UserSetting;
 use Omeka\Permissions\Acl;
 use Omeka\Settings\Settings;
-use Zend\Authentication\Adapter\AbstractAdapter;
-use Zend\Authentication\Adapter\Ldap;
-use Zend\Authentication\Result;
-use Zend\EventManager\EventManager;
-use Zend\Log\Logger;
+use Laminas\Authentication\Adapter\AbstractAdapter;
+use Laminas\Authentication\Adapter\Ldap;
+use Laminas\Authentication\Result;
+use Laminas\EventManager\EventManager;
+use Laminas\Log\Logger;
 
 class LdapAdapter extends AbstractAdapter
 {

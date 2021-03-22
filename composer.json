@@ -11,6 +11,6 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "zendframework/zend-ldap": "^2.10"
+        "laminas/laminas-ldap": "^2.10"
     }
 }

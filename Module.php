@@ -4,9 +4,9 @@ namespace Ldap;
 
 use Ldap\Form\ConfigForm;
 use Omeka\Module\AbstractModule;
-use Zend\Mvc\Controller\AbstractController;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\Mvc\Controller\AbstractController;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Renderer\PhpRenderer;
 
 class Module extends AbstractModule
 {
