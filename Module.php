@@ -4,9 +4,11 @@ namespace Ldap;
 
 use Ldap\Form\ConfigForm;
 use Omeka\Module\AbstractModule;
+use Omeka\Module\Exception\ModuleCannotInstallException;
 use Zend\Mvc\Controller\AbstractController;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Renderer\PhpRenderer;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Module extends AbstractModule
 {
@@ -15,6 +17,13 @@ class Module extends AbstractModule
         parent::onBootstrap($event);
 
         require_once __DIR__ . '/vendor/autoload.php';
+    }
+
+    public function install(ServiceLocatorInterface $serviceLocator)
+    {
+        if (!extension_loaded('ldap')) {
+            throw new ModuleCannotInstallException('This module requires PHP ldap extension, which is not loaded');
+        }
     }
 
     public function getConfig()
