@@ -40,7 +40,13 @@ class Module extends AbstractModule
         $form->setData([
             'ldap_role' => $settings->get('ldap_role'),
         ]);
-        return $renderer->formCollection($form, false);
+
+        $output = $renderer->formCollection($form, false)
+            . sprintf('<div><strong>%s:</strong> %s</div>',
+                $renderer->translate('Important'),
+                $renderer->translate('Configuration of LDAP servers should be done in the main configuration file. See README.md'));
+
+        return $output;
     }
 
     public function handleConfigForm(AbstractController $controller)

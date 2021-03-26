@@ -1,0 +1,39 @@
+# French translations for PACKAGE package.
+# Copyright (C) 2021 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-26 13:42+0100\n"
+"Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"PO-Revision-Date: \n"
+"X-Generator: Poedit 2.2.1\n"
+
+#: Module.php:46
+msgid "Important"
+msgstr "Important"
+
+#: Module.php:47
+msgid ""
+"Configuration of LDAP servers should be done in the main configuration file. "
+"See README.md"
+msgstr ""
+"La configuration des serveurs LDAP doit être faite dans le fichier de "
+"configuration principal. Voir README.md"
+
+#: src/Form/ConfigForm.php:17
+msgid "Role given to created users"
+msgstr "Rôle donné aux utilisateurs créés"
+
+#: src/Form/LoginForm.php:16
+msgid "Email or username"
+msgstr "E-mail ou nom d'utilisateur"
