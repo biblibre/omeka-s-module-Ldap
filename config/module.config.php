@@ -11,7 +11,7 @@ return [
     ],
     'ldap' => [
         // This should be configured in Omeka config/local.config.php
-        // See https://docs.zendframework.com/zend-authentication/adapter/ldap/
+        // See https://docs.laminas.dev/laminas-authentication/adapter/ldap/
         'adapter_options' => [
         ],
     ],

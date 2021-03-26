@@ -3,7 +3,7 @@
 namespace Ldap\Form;
 
 use Omeka\Form\Element\RoleSelect;
-use Zend\Form\Form;
+use Laminas\Form\Form;
 
 class ConfigForm extends Form
 {

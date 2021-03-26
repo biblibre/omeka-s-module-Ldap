@@ -9,8 +9,13 @@
             "email": "julian.maurice@biblibre.com"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "7.1"
+        }
+    },
     "minimum-stability": "stable",
     "require": {
-        "zendframework/zend-ldap": "^2.10"
+        "laminas/laminas-ldap": "^2.10"
     }
 }

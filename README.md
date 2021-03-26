@@ -28,7 +28,7 @@ composer install --no-dev
 LDAP servers configuration should be done in Omeka S main configuration file
 (`config/local.config.php`)
 
-See https://docs.zendframework.com/zend-authentication/adapter/ldap/
+See https://docs.laminas.dev/laminas-authentication/adapter/ldap/
 
 Example:
 
