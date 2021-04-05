@@ -39,6 +39,7 @@ class Module extends AbstractModule
         $form->init();
         $form->setData([
             'ldap_role' => $settings->get('ldap_role'),
+            'ldap_map_name' => $settings->get('ldap_map_name', 'name'),
         ]);
 
         $output = $renderer->formCollection($form, false)
@@ -63,6 +64,7 @@ class Module extends AbstractModule
 
         $formData = $form->getData();
         $settings->set('ldap_role', $formData['ldap_role']);
+        $settings->set('ldap_map_name', $formData['ldap_map_name']);
         return true;
     }
 }
