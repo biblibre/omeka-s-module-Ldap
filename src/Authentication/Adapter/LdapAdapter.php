@@ -66,8 +66,18 @@ class LdapAdapter extends AbstractAdapter
                 $userRepository = $this->entityManager->getRepository('Omeka\Entity\User');
                 $user = $userRepository->findOneBy(['email' => $identity]);
                 if (!$user) {
+                    $mapName = $this->settings->get('ldap_map_name');
+                    if ($mapName) {
+                        $account = $ldapAdapter->getAccountObject([$mapName]);
+                        $name = empty($account->$mapName)
+                            ? $identity
+                            : $account->$mapName;
+                    } else {
+                        $name = $identity;
+                    }
+
                     $user = new User();
-                    $user->setName($identity);
+                    $user->setName($name);
                     $user->setEmail($identity);
                     $user->setRole($this->settings->get('ldap_role', Acl::ROLE_RESEARCHER));
                     $user->setIsActive(true);
