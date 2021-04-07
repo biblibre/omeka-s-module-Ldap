@@ -22,17 +22,25 @@ class ConfigForm extends Form
                 'required' => true,
             ],
         ]);
-        $this
-            ->add([
-                'name' => 'ldap_map_name',
-                'type' => Element\Text::class,
-                'options' => [
-                    'label' => 'Ldap key to map user name', // @translate
-                ],
-                'attributes' => [
-                    'id' => 'ldap_map_name',
-                    'placeholder' => 'name',
-                ],
-            ]);
+        $this->add([
+            'name' => 'ldap_email_attribute',
+            'type' => Element\Text::class,
+            'options' => [
+                'label' => 'LDAP attribute to use as user email', // @translate
+            ],
+            'attributes' => [
+                'id' => 'ldap_email_attribute',
+            ],
+        ]);
+        $this->add([
+            'name' => 'ldap_name_attribute',
+            'type' => Element\Text::class,
+            'options' => [
+                'label' => 'LDAP attribute to use as user name', // @translate
+            ],
+            'attributes' => [
+                'id' => 'ldap_name_attribute',
+            ],
+        ]);
     }
 }

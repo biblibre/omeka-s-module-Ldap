@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-26 13:42+0100\n"
+"POT-Creation-Date: 2021-04-07 13:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Module.php:46
+#: Module.php:48
 msgid "Important"
 msgstr ""
 
-#: Module.php:47
+#: Module.php:49
 msgid ""
 "Configuration of LDAP servers should be done in the main configuration file. "
 "See README.md"
 msgstr ""
 
-#: src/Form/ConfigForm.php:17
+#: src/Form/ConfigForm.php:18
 msgid "Role given to created users"
+msgstr ""
+
+#: src/Form/ConfigForm.php:29
+msgid "LDAP attribute to use as user email"
+msgstr ""
+
+#: src/Form/ConfigForm.php:39
+msgid "LDAP attribute to use as user name"
 msgstr ""
 
 #: src/Form/LoginForm.php:16

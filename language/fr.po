@@ -7,7 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-26 13:42+0100\n"
+"POT-Creation-Date: 2021-04-07 13:08+0000\n"
+"PO-Revision-Date: \n"
 "Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -15,14 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"PO-Revision-Date: \n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: Module.php:46
+#: Module.php:48
 msgid "Important"
 msgstr "Important"
 
-#: Module.php:47
+#: Module.php:49
 msgid ""
 "Configuration of LDAP servers should be done in the main configuration file. "
 "See README.md"
@@ -30,9 +30,17 @@ msgstr ""
 "La configuration des serveurs LDAP doit être faite dans le fichier de "
 "configuration principal. Voir README.md"
 
-#: src/Form/ConfigForm.php:17
+#: src/Form/ConfigForm.php:18
 msgid "Role given to created users"
 msgstr "Rôle donné aux utilisateurs créés"
+
+#: src/Form/ConfigForm.php:29
+msgid "LDAP attribute to use as user email"
+msgstr "Attribut LDAP à utiliser en tant qu'e-mail utilisateur"
+
+#: src/Form/ConfigForm.php:39
+msgid "LDAP attribute to use as user name"
+msgstr "Attribut LDAP à utiliser en tant que nom d'utilisateur"
 
 #: src/Form/LoginForm.php:16
 msgid "Email or username"

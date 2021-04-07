@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added options to map LDAP attributes to user's email and name (partially
+  contributed by @Daniel-KM)
+
 ## [0.3.0] - 2021-03-26
 
 **BREAKING CHANGE** The module is no longer compatible with Omeka S version 2.x
 
-* Added compatibility with Omeka S version 3.x
+- Added compatibility with Omeka S version 3.x
 
 ## [0.2.0] - 2021-03-26
 
