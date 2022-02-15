@@ -72,7 +72,7 @@ class LdapAdapter extends AbstractAdapter
                 $email = $emailAttribute ? $ldapAccount->$emailAttribute : null;
                 $name = $nameAttribute ? $ldapAccount->$nameAttribute : null;
 
-                $user = $userRepository->findOneBy(['email' => $email ?? identity]);
+                $user = $userRepository->findOneBy(['email' => $email ?? $identity]);
                 if (!$user) {
                     $user = new User();
                     $user->setName($name ?? $identity);
