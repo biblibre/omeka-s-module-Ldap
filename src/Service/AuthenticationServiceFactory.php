@@ -7,6 +7,7 @@ use Omeka\Authentication\Adapter\KeyAdapter;
 use Omeka\Authentication\Storage\DoctrineWrapper;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\Adapter\Callback;
+use Laminas\Authentication\Adapter\Ldap;
 use Laminas\Authentication\Storage\NonPersistent;
 use Laminas\Authentication\Storage\Session;
 use Laminas\ServiceManager\Factory\FactoryInterface;
@@ -45,7 +46,8 @@ class AuthenticationServiceFactory implements FactoryInterface
             } else {
                 // Authenticate using user/password for all other requests.
                 $storage = new DoctrineWrapper(new Session, $userRepository);
-                $adapter = new LdapAdapter($entityManager, $logger, $settings, $eventManager, $config['ldap']);
+                $ldapAdapter = new Ldap($config['ldap']['adapter_options']);
+                $adapter = new LdapAdapter($entityManager, $logger, $settings, $eventManager, $ldapAdapter);
             }
         }
 

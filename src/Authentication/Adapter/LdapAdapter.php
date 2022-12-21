@@ -26,11 +26,6 @@ class LdapAdapter extends AbstractAdapter
     protected $logger;
 
     /**
-     * @var array
-     */
-    protected $config;
-
-    /**
      * @var Settings
      */
     protected $settings;
@@ -40,20 +35,35 @@ class LdapAdapter extends AbstractAdapter
      */
     protected $eventManager;
 
-    public function __construct(EntityManager $entityManager, Logger $logger, Settings $settings, EventManager $eventManager, array $config = [])
+    /**
+     * @var Ldap
+     */
+    protected $ldapAdapter;
+
+    public function __construct(EntityManager $entityManager, Logger $logger, Settings $settings, EventManager $eventManager, Ldap $ldapAdapter)
     {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
-        $this->config = $config;
         $this->settings = $settings;
         $this->eventManager = $eventManager;
+        $this->ldapAdapter = $ldapAdapter;
+    }
+
+    public function setIdentity($identity)
+    {
+        parent::setIdentity($identity);
+        $this->ldapAdapter->setIdentity($identity);
+    }
+
+    public function setCredential($credential)
+    {
+        parent::setCredential($credential);
+        $this->ldapAdapter->setCredential($credential);
     }
 
     public function authenticate()
     {
-        $options = $this->config['adapter_options'] ?? [];
-        $ldapAdapter = new Ldap($options, $this->identity, $this->credential);
-        $result = $ldapAdapter->authenticate();
+        $result = $this->ldapAdapter->authenticate();
         if ($result->isValid()) {
             $identity = $result->getIdentity();
             $query = $this->entityManager->createQuery('SELECT s FROM Omeka\Entity\UserSetting s WHERE s.id = :settingName AND s.value = :settingValue');
@@ -67,7 +77,7 @@ class LdapAdapter extends AbstractAdapter
                 $emailAttribute = $this->settings->get('ldap_email_attribute');
                 $nameAttribute = $this->settings->get('ldap_name_attribute');
                 $attributes = array_filter([$emailAttribute, $nameAttribute]);
-                $ldapAccount = $ldapAdapter->getAccountObject($attributes);
+                $ldapAccount = $this->ldapAdapter->getAccountObject($attributes);
 
                 $email = $emailAttribute ? $ldapAccount->$emailAttribute : null;
                 $name = $nameAttribute ? $ldapAccount->$nameAttribute : null;
