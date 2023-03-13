@@ -4,48 +4,43 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee051e38e5952658181e1a52442acef1",
+    "content-hash": "be35cc40fe94b3e1650de9f6a132da92",
     "packages": [
         {
             "name": "laminas/laminas-ldap",
-            "version": "2.10.3",
+            "version": "2.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-ldap.git",
-                "reference": "649fae8982149b93071c4a7d56f2c4efeed51aa8"
+                "reference": "e21bf1177b2cbdae57f75355a8fd0774438a42d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-ldap/zipball/649fae8982149b93071c4a7d56f2c4efeed51aa8",
-                "reference": "649fae8982149b93071c4a7d56f2c4efeed51aa8",
+                "url": "https://api.github.com/repos/laminas/laminas-ldap/zipball/e21bf1177b2cbdae57f75355a8fd0774438a42d2",
+                "reference": "e21bf1177b2cbdae57f75355a8fd0774438a42d2",
                 "shasum": ""
             },
             "require": {
                 "ext-ldap": "*",
-                "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^5.6 || ^7.0"
+                "php": "^7.4 || ~8.0.0 || ~8.1.0"
             },
-            "replace": {
-                "zendframework/zend-ldap": "^2.10.1"
+            "conflict": {
+                "zendframework/zend-ldap": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~1.0.0",
-                "laminas/laminas-config": "^2.5",
-                "laminas/laminas-eventmanager": "^2.6.3 || ^3.0.1",
-                "laminas/laminas-stdlib": "^2.7 || ^3.0",
-                "php-mock/php-mock-phpunit": "^1.1.2 || ^2.1.1",
-                "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.5.20"
+                "laminas/laminas-coding-standard": "~2.4.0",
+                "laminas/laminas-config": "^3.7.0",
+                "laminas/laminas-eventmanager": "^3.4.0",
+                "laminas/laminas-stdlib": "^3.7.1",
+                "php-mock/php-mock-phpunit": "^2.6.0",
+                "phpunit/phpunit": "^9.5.19",
+                "psalm/plugin-phpunit": "^0.17.0",
+                "vimeo/psalm": "^4.22.0"
             },
             "suggest": {
                 "laminas/laminas-eventmanager": "Laminas\\EventManager component"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.10.x-dev",
-                    "dev-develop": "2.11.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Laminas\\Ldap\\": "src/"
@@ -61,7 +56,13 @@
                 "laminas",
                 "ldap"
             ],
-            "time": "2020-03-29T13:06:47+00:00"
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2022-09-03T10:04:41+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -127,7 +128,7 @@
     "platform": [],
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.1"
+        "php": "7.4"
     },
     "plugin-api-version": "1.1.0"
 }
