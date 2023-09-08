@@ -111,7 +111,8 @@ class LdapAdapter extends AbstractAdapter
 
         // LDAP authentication failed, log error message and try password authentication
         $messages = $result->getMessages();
-        $this->logger->err(sprintf('Ldap: %s', $messages[1]));
+        $messages = array_filter($messages);
+        $this->logger->err(sprintf('Ldap: %s', implode(' ; ', $messages)));
 
         $passwordAdapter = new PasswordAdapter($this->entityManager->getRepository('Omeka\Entity\User'));
         $passwordAdapter->setIdentity($this->identity);
