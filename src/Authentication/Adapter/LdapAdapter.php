@@ -12,6 +12,7 @@ use Laminas\Authentication\Adapter\Ldap;
 use Laminas\Authentication\Result;
 use Laminas\EventManager\EventManager;
 use Laminas\Log\Logger;
+use Laminas\Authentication\Result as AuthenticationResult;
 
 class LdapAdapter extends AbstractAdapter
 {
@@ -83,6 +84,9 @@ class LdapAdapter extends AbstractAdapter
                 $name = $nameAttribute ? $ldapAccount->$nameAttribute : null;
 
                 $user = $userRepository->findOneBy(['email' => $email ?? $identity]);
+
+                $this->eventManager->setIdentifiers([self::class]);
+
                 if (!$user) {
                     $user = new User();
                     $user->setName($name ?? $identity);
@@ -90,11 +94,13 @@ class LdapAdapter extends AbstractAdapter
                     $user->setRole($this->settings->get('ldap_role', Acl::ROLE_RESEARCHER));
                     $user->setIsActive(true);
 
-                    $this->eventManager->setIdentifiers([self::class]);
                     $this->eventManager->trigger('ldap.user.create.pre', $user);
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                     $this->eventManager->trigger('ldap.user.create.post', $user);
+                } else {
+                    $this->eventManager->trigger('ldap.user.update', $user);
+                    $this->entityManager->flush();
                 }
 
                 $userSetting = new UserSetting();
@@ -106,6 +112,10 @@ class LdapAdapter extends AbstractAdapter
                 $this->entityManager->flush();
             }
 
+            if (!$user->isActive()) {
+                $messages = ['User is not active'];
+                return new Result(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND, $identity, $messages);
+            }
             return new Result($result->getCode(), $user, $result->getMessages());
         }
 
