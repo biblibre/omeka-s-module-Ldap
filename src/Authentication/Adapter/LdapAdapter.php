@@ -12,7 +12,6 @@ use Laminas\Authentication\Adapter\Ldap;
 use Laminas\Authentication\Result;
 use Laminas\EventManager\EventManager;
 use Laminas\Log\Logger;
-use Laminas\Authentication\Result as AuthenticationResult;
 
 class LdapAdapter extends AbstractAdapter
 {
@@ -114,7 +113,7 @@ class LdapAdapter extends AbstractAdapter
 
             if (!$user->isActive()) {
                 $messages = ['User is not active'];
-                return new Result(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND, $identity, $messages);
+                return new Result(Result::FAILURE_IDENTITY_NOT_FOUND, $user, $messages);
             }
             return new Result($result->getCode(), $user, $result->getMessages());
         }
