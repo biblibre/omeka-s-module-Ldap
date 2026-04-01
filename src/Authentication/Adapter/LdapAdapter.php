@@ -1,4 +1,5 @@
 <?php
+
 namespace Ldap\Authentication\Adapter;
 
 use Doctrine\ORM\EntityManager;
@@ -72,19 +73,18 @@ class LdapAdapter extends AbstractAdapter
             $settings = $query->getResult();
             $setting = reset($settings);
             $user = $setting ? $setting->getUser() : null;
+            $ldapAccount = $this->ldapAdapter->getAccountObject();
+            $this->eventManager->setIdentifiers([self::class]);
+
             if (!$user) {
                 $userRepository = $this->entityManager->getRepository('Omeka\Entity\User');
                 $emailAttribute = $this->settings->get('ldap_email_attribute');
                 $nameAttribute = $this->settings->get('ldap_name_attribute');
-                $attributes = array_filter([$emailAttribute, $nameAttribute]);
-                $ldapAccount = $this->ldapAdapter->getAccountObject($attributes);
 
                 $email = $emailAttribute ? $ldapAccount->$emailAttribute : null;
                 $name = $nameAttribute ? $ldapAccount->$nameAttribute : null;
 
                 $user = $userRepository->findOneBy(['email' => $email ?? $identity]);
-
-                $this->eventManager->setIdentifiers([self::class]);
 
                 if (!$user) {
                     $user = new User();
@@ -93,12 +93,12 @@ class LdapAdapter extends AbstractAdapter
                     $user->setRole($this->settings->get('ldap_role', Acl::ROLE_RESEARCHER));
                     $user->setIsActive(true);
 
-                    $this->eventManager->trigger('ldap.user.create.pre', $user);
+                    $this->eventManager->trigger('ldap.user.create.pre', $user, ['ldapAccount' => $ldapAccount]);
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                     $this->eventManager->trigger('ldap.user.create.post', $user);
                 } else {
-                    $this->eventManager->trigger('ldap.user.update', $user);
+                    $this->eventManager->trigger('ldap.user.update', $user, ['ldapAccount' => $ldapAccount]);
                     $this->entityManager->flush();
                 }
 
@@ -108,6 +108,9 @@ class LdapAdapter extends AbstractAdapter
                 $userSetting->setValue($identity);
 
                 $this->entityManager->persist($userSetting);
+                $this->entityManager->flush();
+            } else {
+                $this->eventManager->trigger('ldap.user.update', $user, ['ldapAccount' => $ldapAccount]);
                 $this->entityManager->flush();
             }
 
