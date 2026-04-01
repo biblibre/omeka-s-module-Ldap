@@ -113,7 +113,7 @@ class LdapAdapter extends AbstractAdapter
 
             if (!$user->isActive()) {
                 $messages = ['User is not active'];
-                return new Result(Result::FAILURE_IDENTITY_NOT_FOUND, $user, $messages);
+                return new Result(Result::FAILURE_IDENTITY_NOT_FOUND, null, $messages);
             }
             return new Result($result->getCode(), $user, $result->getMessages());
         }
